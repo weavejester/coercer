@@ -1,5 +1,5 @@
 (ns coercer.core
-  (:import clojure.lang.Keyword))
+  (:import [clojure.lang Keyword Symbol]))
 
 (defmulti coerce
   "Multimethod to convert a value x to a type t."
@@ -28,6 +28,17 @@
 
 (defmethod coerce [String Keyword] [s _]
   (keyword s))
+
+(defmethod coerce [Object Keyword] [x _]
+  (-> (coerce x String)
+      (coerce Keyword)))
+
+(defmethod coerce [String Symbol] [s _]
+  (symbol s))
+
+(defmethod coerce [Object Symbol] [x _]
+  (-> (coerce x String)
+      (coerce Keyword)))
 
 (defmethod coerce [Object String] [x _]
   (.toString x))
