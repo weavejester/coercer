@@ -6,19 +6,22 @@
   (fn [x t] [(type x) t]))
 
 (defmethod coerce [String Integer] [s _]
-  (Integer. s))
+  (try (Integer. s)
+       (catch NumberFormatException _)))
 
 (defmethod coerce [Object Integer] [x _]
   (int x))
 
 (defmethod coerce [String Double] [s _]
-  (Double. s))
+  (try (Double. s)
+       (catch NumberFormatException _)))
 
 (defmethod coerce [Object Double] [x _]
   (double x))
 
 (defmethod coerce [String Float] [s _]
-  (Float. s))
+  (try (Float. s)
+       (catch NumberFormatException _)))
 
 (defmethod coerce [Object Float] [x _]
   (float x))
