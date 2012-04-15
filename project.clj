@@ -1,4 +1,4 @@
-(defproject coercer "0.1.0-SNAPSHOT"
+(defproject coercer "0.1.0"
   :description "Library to convert Clojure data into different types"
   :url "https://github.com/weavejester/coercer"
   :license {:name "Eclipse Public License"
