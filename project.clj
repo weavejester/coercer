@@ -1,6 +1,6 @@
 (defproject coercer "0.1.0-SNAPSHOT"
   :description "Library to convert Clojure data into different types"
-  :url "http://example.com/FIXME"
+  :url "https://github.com/weavejester/coercer"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.3.0"]])
