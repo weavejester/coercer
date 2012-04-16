@@ -1,5 +1,8 @@
 (ns coercer.core
-  (:import [clojure.lang Keyword Symbol]))
+  (:use [clj-time.coerce :only (from-date from-string to-date to-string)])
+  (:import [clojure.lang Keyword Symbol]
+           [org.joda.time DateTime]
+           [java.util Date]))
 
 (defmulti coerce
   "Multimethod to convert a value x to a type t."
@@ -42,6 +45,26 @@
 (defmethod coerce [Object Symbol] [x _]
   (-> (coerce x String)
       (coerce Keyword)))
+
+(defmethod coerce [String DateTime] [s _]
+  (from-string s))
+
+(defmethod coerce [DateTime String] [dt _]
+  (to-string dt))
+
+(defmethod coerce [Date DateTime] [d _]
+  (from-date d))
+
+(defmethod coerce [DateTime Date] [dt _]
+  (to-date dt))
+
+(defmethod coerce [Date String] [d _]
+  (-> (coerce d DateTime)
+      (coerce String)))
+
+(defmethod coerce [Object Date] [x _]
+  (-> (coerce x DateTime)
+      (coerce Date)))
 
 (defmethod coerce [Object String] [x _]
   (.toString x))
