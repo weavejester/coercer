@@ -1,5 +1,5 @@
 (ns coercer.core
-  (:use [clj-time.coerce :only (from-date from-string to-date to-string)])
+  (:require [clj-time.coerce :as time])
   (:import [clojure.lang Keyword Symbol]
            [org.joda.time DateTime]
            [java.util Date]))
@@ -29,6 +29,13 @@
 (defmethod coerce [Object Float] [x _]
   (float x))
 
+(defmethod coerce [String Long] [s _]
+  (try (Long. s)
+       (catch NumberFormatException _)))
+
+(defmethod coerce [Object Long] [x _]
+  (long x))
+
 (defmethod coerce [Keyword String] [k _]
   (name k))
 
@@ -47,16 +54,19 @@
       (coerce Keyword)))
 
 (defmethod coerce [String DateTime] [s _]
-  (from-string s))
+  (time/from-string s))
 
 (defmethod coerce [DateTime String] [dt _]
-  (to-string dt))
+  (time/to-string dt))
+
+(defmethod coerce [DateTime Long] [dt _]
+  (time/to-long dt))
 
 (defmethod coerce [Date DateTime] [d _]
-  (from-date d))
+  (time/from-date d))
 
 (defmethod coerce [DateTime Date] [dt _]
-  (to-date dt))
+  (time/to-date dt))
 
 (defmethod coerce [Date String] [d _]
   (-> (coerce d DateTime)

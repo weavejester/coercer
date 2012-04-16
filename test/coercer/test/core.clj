@@ -13,6 +13,8 @@
       String "a" "a"
       String 1 "1"
       Integer "1" 1
+      Long "1" (long 1)
+      Double "1.0" 1.0
       String :a "a"
       Keyword "a" :a
       Symbol "a" 'a))
