@@ -81,3 +81,10 @@
 
 (defmethod coerce [Object String] [x _]
   (.toString x))
+
+(defmethod coerce [Object Object] [x t]
+  (if (isa? (type x) t)
+    x
+    (throw
+     (IllegalArgumentException.
+      (str "Cannot coerce " (pr-str x) " into a " (pr-str t))))))
