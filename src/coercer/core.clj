@@ -62,6 +62,9 @@
 (defmethod coerce [DateTime Long] [dt _]
   (time/to-long dt))
 
+(defmethod coerce [Long DateTime] [x _]
+  (time/from-long x))
+
 (defmethod coerce [Date DateTime] [d _]
   (time/from-date d))
 

@@ -23,4 +23,6 @@
       (are [t x y] (= (coerce x t) y)
         String   dt "2012-04-16T10:36:23.000Z"
         Date     dt (to-date dt)
-        DateTime "2012-04-16T10:36:23.000Z" dt))))
+        DateTime "2012-04-16T10:36:23.000Z" dt
+        Long     dt 1334572583000
+        DateTime 1334572583000 dt))))
