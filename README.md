@@ -19,16 +19,26 @@ Use the `coerce` multimethod to convert between types:
 (coerce "5.5" Double)  ; => 5.5
 (coerce "foo" Keyword) ; => :foo
 (coerce :abc String)   ; => "abc"
+
+(use '[clj-time.core :only (now)])
+(import 'java.util.Date)
+
+(coerce (now) String)       ; => "2012-04-17T20:53:55.552Z"
+(coerce (now) Long)         ; => 1334696086921
+(coerce 1334696086921 Date) ; => #<Date Tue Apr 17 21:54:46 BST 2012>
 ```
 
 Currently `coerce` supports the following types by default:
 
-* String
-* Integer
-* Float
-* Double
-* Keyword
-* Symbol
+* java.lang.String
+* java.lang.Integer
+* java.lang.Long
+* java.lang.Float
+* java.lang.Double
+* clojure.lang.Keyword
+* clojure.lang.Symbol
+* java.util.Date
+* org.joda.time.DateTime
 
 ## License
 
