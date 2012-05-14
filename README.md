@@ -13,7 +13,7 @@ Add the following dependency to your `project.clj` file:
 Use the `coerce` multimethod to convert between types:
 
 ```clojure
-(use 'coerce.core)
+(use 'coercer.core)
 
 (coerce "50" Integer)  ; => 50
 ```
