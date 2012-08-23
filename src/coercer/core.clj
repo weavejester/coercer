@@ -4,9 +4,18 @@
            [org.joda.time DateTime]
            [java.util Date]))
 
+(def primitives
+  {(class (byte-array [])) ::bytes})
+
+(def aliases
+  {bytes      ::bytes
+   byte-array ::bytes})
+
 (defmulti coerce
   "Multimethod to convert a value x to a type t."
-  (fn [x t] [(type x) t]))
+  (fn [x t]
+    [(let [tx (type x)] (primitives tx tx))
+     (aliases t t)]))
 
 (defmethod coerce [String Integer] [s _]
   (try (Integer. s)
@@ -52,6 +61,20 @@
 (defmethod coerce [Object Symbol] [x _]
   (-> (coerce x String)
       (coerce Keyword)))
+
+(defmethod coerce [String ::bytes] [s _]
+  (.getBytes s))
+
+(defmethod coerce [::bytes String] [x _]
+  (String. x))
+
+(defmethod coerce [Object ::bytes] [x _]
+  (-> (coerce x String)
+      (coerce bytes)))
+
+(defmethod coerce [::bytes Object] [x t]
+  (-> (coerce x String)
+      (coerce t)))
 
 (defmethod coerce [String DateTime] [s _]
   (time/from-string s))
