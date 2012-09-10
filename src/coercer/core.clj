@@ -98,6 +98,14 @@
   (-> (coerce d DateTime)
       (coerce String)))
 
+(defmethod coerce [Date Long] [d _]
+  (-> (coerce d DateTime)
+      (coerce Long)))
+
+(defmethod coerce [Long Date] [x _]
+  (-> (coerce x DateTime)
+      (coerce Date)))
+
 (defmethod coerce [Object Date] [x _]
   (-> (coerce x DateTime)
       (coerce Date)))

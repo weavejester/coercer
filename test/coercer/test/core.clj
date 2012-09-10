@@ -25,7 +25,9 @@
         Date     dt (to-date dt)
         DateTime "2012-04-16T10:36:23.000Z" dt
         Long     dt 1334572583000
-        DateTime 1334572583000 dt)))
+        DateTime 1334572583000 dt
+        Long     (to-date dt) 1334572583000
+        Date     1334572583000 (to-date dt))))
   (testing "primitive arrays"
     (are [t x y] (= (seq (coerce x t)) (seq y))
       bytes "a" (.getBytes "a")
