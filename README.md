@@ -6,7 +6,7 @@ A library for converting data of one type into another type.
 
 Add the following dependency to your `project.clj` file:
 
-    [coercer "0.1.2"]
+    [coercer "0.2.0"]
 
 ## Usage
 
